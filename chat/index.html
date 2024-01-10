@@ -91,10 +91,10 @@
     <script>
       const socket = io();
 
-      // Prompt for user's name
+      // prompt for user's name
       const name = prompt("Please enter your name:");
 
-      // Emit the user's name to the server
+      // emit the user's name to the server
       socket.emit('sendName', name);
 
       const form = document.getElementById('form');
@@ -105,14 +105,15 @@
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         if (input.value) {
-          socket.emit('chat message', input.value);
+          socket.emit('chat message', { name, message: input.value });
           input.value = '';
         }
       });
 
-      socket.on('chat message', (msg) => {
+      socket.on('chat message', (data) => {
         const item = document.createElement('li');
-        item.innerHTML = `<div class="bubble">${msg}</div>`;
+        const bubbleClass = data.name === name ? 'bubble sent' : 'bubble';
+        item.innerHTML = `<div class="${bubbleClass}">${data.name} said: ${data.message}</div>`;
         messages.appendChild(item);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
       });

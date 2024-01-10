@@ -11,26 +11,24 @@ app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'index.html'));
 });
 
-io.on('connection', (socket) => { // connect
-  console.log('a user connected');
-});
-
-io.on('connection', (socket) => { // disconect
-  console.log('a user connected');
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-});
-
-io.on('connection', (socket) => { // chat messages
-  socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
-  });
-});
-
+// connect
 io.on('connection', (socket) => {
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);
+  console.log('a user connected');
+
+  // listen for user's name
+  socket.on('sendName', (name) => {
+    socket.username = name; // store the user's name in the socket object
+  });
+
+  // listen for chat messages
+  socket.on('chat message', (data) => {
+    console.log(`${socket.username} said: ${data.message}`);
+    io.emit('chat message', { name: socket.username, message: data.message });
+  });
+
+  // disconnect
+  socket.on('disconnect', () => {
+    console.log(`${socket.username} disconnected`);
   });
 });
 
