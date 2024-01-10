@@ -1,36 +1,43 @@
 var socket = io();
 
-// words for the game
-const wordList = ["music", "apple", "snow", "rain"];
+/*
 
-let currentWord; // stores the current word chosen to be drawn
 
-// starts a new round
-function startRound() {
-  currentWord = getRandomWord();
-  // clearCanvas();
-}
+code for chat ⬇️
 
-// get a random word from wordList
-function getRandomWord() {
-  const randomIndex = Math.floor(Math.random() * wordList.length);
-  return wordList[randomIndex];
-}
 
-// math to handle player guesses
-function handleGuess() {
-  // if player's guess === currentWord
-    // add points, display message saying congrats or something
-  // else
-    // displsy message they guessed (incorrect) word
-}
+*/
 
-// send messages
-function sendMessage() {
 
-}
+// prompt for user's name
+const name = prompt("Please enter your name:");
 
-startRound()
+// emit the user's name to the server
+socket.emit('sendName', name);
+
+const form = document.getElementById('form');
+const input = document.getElementById('input');
+const messagesContainer = document.getElementById('messages-container');
+const messages = document.getElementById('messages');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (input.value) {
+    socket.emit('chat message', { name, message: input.value });
+    input.value = '';
+  }
+});
+
+socket.on('chat message', (data) => {
+  const item = document.createElement('li');
+  const bubbleClass = data.name === name ? 'bubble sent' : 'bubble';
+  item.innerHTML = `
+    <div class="name-bubble">${data.name}</div>
+    <div class="${bubbleClass}">${data.message}</div>
+  `;
+  messages.appendChild(item);
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+});
 
 /*
 
