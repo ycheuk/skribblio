@@ -9,9 +9,11 @@
         margin: 0;
         padding: 0;
         font-family: 'Lato', sans-serif;
+        color: #66545e;
       }
 
       #chat-container {
+        /* background: #ece6e3;  */
         position: fixed;
         bottom: 0;
         right: 0;
@@ -65,16 +67,24 @@
       }
 
       .bubble {
-        background-color: #ece6e3;
-        border-radius: 10px;
+        background-color: #faebd7;
+        border-radius: 0 10px 10px 10px;
         padding: 10px;
         margin-bottom: 10px;
-        max-width: 50%;
+        max-width: 100%;
         align-self: flex-start;
+        display: inline-block;
+        word-wrap: break-word
       }
 
       .bubble.sent {
         align-self: flex-end;
+      }
+
+      .name-bubble {
+        font-size: 12px;
+        color: #888;
+        text-align: left;
       }
     </style>
   </head>
@@ -113,7 +123,10 @@
       socket.on('chat message', (data) => {
         const item = document.createElement('li');
         const bubbleClass = data.name === name ? 'bubble sent' : 'bubble';
-        item.innerHTML = `<div class="${bubbleClass}">${data.name} said: ${data.message}</div>`;
+        item.innerHTML = `
+          <div class="name-bubble">${data.name}</div>
+          <div class="${bubbleClass}">${data.message}</div>
+        `;
         messages.appendChild(item);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
       });
