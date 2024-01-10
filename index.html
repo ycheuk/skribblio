@@ -6,8 +6,26 @@
   <title>Skribblio</title>
 </head>
 <body>
-  <div id="drawingCanvas"></div>
+  <div id="drawingCanvas">
+        <canvas></canvas>
+        
+        <div class="palette">
+          <div class="paint" id="black">
+            x
+          </div>
+          <div class="paint" id="pink">
+            x
+          </div>
+          <div class="paint" id="clear">
+            <div id="griddy">
+              <i class="far fa-trash-alt"></i>
+            </div>
+          </div>
+        </div>
+
+    </div>
   <div id="chatBox"></div>
+<script src="/socket.io/socket.io.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
