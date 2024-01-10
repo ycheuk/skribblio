@@ -1,3 +1,5 @@
+var socket = io();
+
 // words for the game
 const wordList = ["music", "apple", "snow", "rain"];
 
