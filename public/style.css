@@ -1,10 +1,31 @@
 body {
     height: 100vh; /* we want the body to fit the entire viewport!! */
     width: 100vw;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    font-family: 'Lato', sans-serif;
+    color: #66545e;
+}
+
+#drawingCanvas {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 canvas {
     border: 1px solid black;
+    height: 75vh;
+    width: 75vw;
+}
+
+li {
+    overflow-wrap: anywhere;
 }
 
 .paint {
@@ -66,4 +87,82 @@ canvas {
     display: inline-flex; 
     gap: 10px;
     margin-top: 10px;
+}
+
+#chat-container {
+    /* background: #ece6e3;  */
+    bottom: 0;
+    right: 0;
+    width: 20vw;
+    height: 90vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#messages-container {
+    flex-grow: 1;
+    max-height: calc(100% - 50px);
+    overflow-y: auto;
+    width: inherit;
+}
+
+#form {
+    background: #eee0ca;
+    padding: 0.25rem;
+    display: flex;
+    height: 50px;
+    width: inherit;
+}
+
+#input {
+    border: none;
+    padding: 0 1rem;
+    flex-grow: 1;
+    border-radius: 2rem;
+    margin: 0.25rem;
+}
+
+#input:focus {
+    outline: none;
+}
+
+#form > button {
+    background: #333;
+    border: none;
+    padding: 0 1rem;
+    margin: 0.25rem;
+    border-radius: 3px;
+    outline: none;
+    color: #fff;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.bubble {
+    background-color: #faebd7;
+    border-radius: 0 10px 10px 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    max-width: 100%;
+    align-self: flex-start;
+    display: inline-block;
+    word-wrap: break-word;
+
+    overflow-x: hidden;
+}
+
+.bubble.sent {
+    align-self: flex-end;
+}
+
+.name-bubble {
+    font-size: 12px;
+    color: #888;
+    text-align: left;
 }
