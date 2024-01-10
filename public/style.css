@@ -1,60 +1,69 @@
 body {
-    height: 100vh;
+    height: 100vh; /* we want the body to fit the entire viewport!! */
     width: 100vw;
 }
 
-#drawingCanvas {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-}
-
 canvas {
-    grid-column: 1 / -1;
     border: 1px solid black;
 }
 
 .paint {
-    height: 48px;
+    height: 48px; /* need pretty square thumbnails for the color options! */
     width: 48px;
 
-    display: inline-block;
+    display: inline-block; /* putting all the color options in a row */
 
     border: 1px solid black;
 
-    text-align: center;
+    text-align: center; /* need this to keep the icon in the very center! */
 }
 
+/* setting us the colors for our paint options <3 */
 #black {
-    grid-column: 1;
-    background-color: black;
+    background-color: #000000;
+}
+
+#red {
+    background-color: #FAA0A0;
+}
+
+#orange {
+    background-color: #FFC69A;
+}
+
+#yellow {
+    background-color: #F8EC7C;
+}
+
+#green {
+    background-color: #D0F2C7;
+}
+
+#blue {
+    background-color: #BAEBE5;
+}
+
+#purple {
+    background-color: #E1CAF8;
 }
 
 #pink {
-    grid-column: 2;
-    background-color: #ffa6c9;
-    color: #ffa6c9;
-}
-
-#clear {
-    grid-column: 3;
+    background-color: #F4C9DE;
 }
 
 #griddy {
-    height: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* making a 3x3 grid so the icon can be centered!! */
     grid-template-rows: repeat(3, 1fr);
 }
 
 #clear i {
-    grid-column: 2;
+    grid-column: 2; /* placing the icon in the very center ! */
     grid-row: 2;
 }
 
 .palette {
-    height: 50px;
-    width: fit-content;
-    display: grid;
-    margin-top: 10px;
+    display: inline-flex; 
     gap: 10px;
+    margin-top: 10px;
 }
