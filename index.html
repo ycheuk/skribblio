@@ -1,31 +1,54 @@
 <!DOCTYPE html>
 <html lang="en-US">
-<head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="styles.css">
-  <title>Skribblio</title>
-</head>
-<body>
-  <div id="drawingCanvas">
-        <canvas></canvas>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <title>Skribblio</title>
+  </head>
+  
+  <body>
+    <div id="drawingCanvas">
+        <canvas></canvas> <!-- the actual drawing surface -->
 
-        <div class="palette">
+        <br>
+        
+        <div class="palette"> <!-- the colors u can choose from! -->
           <div class="paint" id="black">
-            x
+            
+          </div>
+          <div class="paint" id="red">
+            
+          </div>
+          <div class="paint" id="orange">
+            
+          </div>
+          <div class="paint" id="yellow">
+            
+          </div>
+          <div class="paint" id="green">
+            
+          </div>
+          <div class="paint" id="blue">
+            
+          </div>
+          <div class="paint" id="purple">
+            
           </div>
           <div class="paint" id="pink">
-            x
+            
           </div>
           <div class="paint" id="clear">
-            <div id="griddy">
-              <i class="far fa-trash-alt"></i>
+            <div id="griddy"> <!-- setting up a grid so i can center the icon -->
+              <i class="far fa-trash-alt"></i> <!-- trash can icon -->
             </div>
           </div>
         </div>
 
     </div>
-  <div id="chatBox"></div>
-<script src="/socket.io/socket.io.js"></script>
-<script src="script.js"></script>
-</body>
+    <div id="chatBox"></div>
+    
+    <script src="/socket.io/socket.io.js"></script> <!-- the socket.io -->
+    <script src="/script.js"></script> <!-- the client-facing js -->
+  </body>
 </html>
