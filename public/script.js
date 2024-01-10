@@ -1,5 +1,3 @@
-var socket = io(); // getting socket.io set up!!
-
 // words for the game
 const wordList = ["music", "apple", "snow", "rain"];
 
@@ -32,7 +30,7 @@ function sendMessage() {
 
 startRound()
 
-/* 
+/*
 
 
 code for canvas feature ⬇️
@@ -74,7 +72,7 @@ function init(e) {
 }
 
 function draw(e) {
-  if (drawing) { // if mousedown 
+  if (drawing) { // if mousedown
     myContext.beginPath();
 
     myContext.moveTo(posX, posY); // starting position = own position
@@ -85,7 +83,7 @@ function draw(e) {
 
     // now triggering the socket.io event 'drawn', sharing this drawing information to every user
     socket.emit('drawn', {
-      // sharing current coordinates, offset coordinates, and the current pen color 
+      // sharing current coordinates, offset coordinates, and the current pen color
       posX: posX,
       posY: posY,
 
