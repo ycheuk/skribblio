@@ -1,41 +1,43 @@
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>skribblio 🐼</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
-  <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-</head>
-<body>
-  <div id="timer">1:00</div>
-  <div id="drawingCanvas">
-    <canvas></canvas> <!-- the actual drawing surface -->
-    <br>
-    <div class="palette"> <!-- the colors u can choose from! -->
-      <div class="paint" id="black"></div>
-      <div class="paint" id="red"></div>
-      <div class="paint" id="orange"></div>
-      <div class="paint" id="yellow"></div>
-      <div class="paint" id="green"></div>
-      <div class="paint" id="blue"></div>
-      <div class="paint" id="purple"></div>
-      <div class="paint" id="pink"></div>
-      <div class="paint" id="clear">
-        <div id="griddy">
-          <i class="far fa-trash-alt"></i>
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>skribblio 🐼</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  </head>
+  <body>
+    <div id="timer">1:00</div>
+    <div id="drawingCanvas">
+      <canvas></canvas> <!-- the actual drawing surface -->
+      <br>
+      <div class="palette"> <!-- the colors u can choose from! -->
+        <div class="paint" id="black"></div>
+        <div class="paint" id="red"></div>
+        <div class="paint" id="orange"></div>
+        <div class="paint" id="yellow"></div>
+        <div class="paint" id="green"></div>
+        <div class="paint" id="blue"></div>
+        <div class="paint" id="purple"></div>
+        <div class="paint" id="pink"></div>
+        <div class="paint" id="clear">
+          <div id="griddy">
+            <i class="far fa-trash-alt"></i>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div id="chat-container">
-    <div id="messages-container">
-      <ul id="messages"></ul>
+    <div id="chat-container">
+      <div id="messages-container">
+        <ul id="messages"></ul>
+      </div>
+      <form id="form" action="">
+        <input id="input" autocomplete="off" /><button>Submit</button>
+      </form>
     </div>
-    <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Submit</button>
-    </form>
-  </div>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/script.js"></script>
-</body>
-</html>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/script.js"></script>
+  </body>
+  </html>
