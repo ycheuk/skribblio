@@ -13,3 +13,5 @@ Yik Yin:
     disconnects as well)
   - added chooseRandomPlayer() function to choose a random player (for picking a player to draw for future)
     and stores it in variable chosenPlayer
+  - changed some css styles and colors because i said so >:) (feel free to change ofc if you don't like
+    colors)

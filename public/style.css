@@ -8,6 +8,8 @@ body {
 
     font-family: 'Lato', sans-serif;
     color: #66545e;
+
+    background-color: #FAF0ED; hehe don't mind this hehehehehehehehehehehehehehehhehehehehehehe
 }
 
 #drawingCanvas {
@@ -22,6 +24,7 @@ canvas {
     border: 1px solid #66545e;
     height: 75vh;
     width: 75vw;
+    margin-left: 20px;
 }
 
 li {
@@ -111,8 +114,9 @@ li {
 }
 
 #form {
-    background: #eee0ca;
-    padding: 0.25rem;
+    background: #e3bab2;
+    padding: 0.5rem;
+    margin-right: 15px;
     display: flex;
     height: 50px;
     width: inherit;
@@ -131,7 +135,7 @@ li {
 }
 
 #form > button {
-    background: #333;
+    background: #AD5B52;
     border: none;
     padding: 0 1rem;
     margin: 0.25rem;
@@ -147,7 +151,7 @@ li {
 }
 
 .bubble {
-    background-color: #faebd7;
+    background-color: #E9D0CB;
     border-radius: 0 10px 10px 10px;
     padding: 10px;
     margin-bottom: 10px;

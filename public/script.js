@@ -27,8 +27,6 @@ let wordChosen = '';
 
 let joinedPlayers = [];
 
-let lastUser = null;
-
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (input.value) {
@@ -83,7 +81,6 @@ socket.on('joinedPlayers', (players) => {
     joinedPlayers = players;
     console.log('Joined players:', joinedPlayers); // tells console (again, making sure it works)
 
-    // Call the function to choose a random player
     chooseRandomPlayer();
 });
 

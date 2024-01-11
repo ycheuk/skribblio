@@ -28,9 +28,9 @@ io.on('connection', (socket) => {
 
     // listen for user's name
     socket.on('sendName', (name) => {
-        socket.username = name; // store the user's name in the socket object
-        joinedPlayers.push(name); // add the player to the joinedPlayers list
-        io.emit('joinedPlayers', joinedPlayers); // emit the updated list to all users
+        socket.username = name; // store user's name in the socket object
+        joinedPlayers.push(name); // add player to the joinedPlayers list
+        io.emit('joinedPlayers', joinedPlayers); // emit updated list to all users
     });
 
     // emit a message when a new user joins
@@ -49,8 +49,8 @@ io.on('connection', (socket) => {
         console.log(`${socket.username} disconnected`);
         const index = joinedPlayers.indexOf(socket.username);
         if (index !== -1) {
-            joinedPlayers.splice(index, 1); // remove the player from the joinedPlayers list
-            io.emit('joinedPlayers', joinedPlayers); // emit the updated list to all users
+            joinedPlayers.splice(index, 1); // remove player from the joinedPlayers list
+            io.emit('joinedPlayers', joinedPlayers); // emit updated list to all users
         }
     });
 
