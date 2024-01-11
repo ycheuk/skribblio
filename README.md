@@ -15,3 +15,13 @@ Yik Yin:
     and stores it in variable chosenPlayer
   - changed some css styles and colors because i said so >:) (feel free to change ofc if you don't like
     colors)
+
+1.11.2024:
+emily
+- ok lmk if this doesn't make any sense
+- implemented "start" keyword -> if u type "start" into chat, it'll start the timer, randomly assign a player a word to draw, etc.
+- if someone guesses the correct keyword, they're awarded a point and the chat announces they got it correct
+- *(TODO: if u wanna make it closer to actual skribbl.io, we'd need to award points based on the order of getting it correct...)*
+- pressing start again after getting it correct resets the timer and invokes a new prompt
+- *(TODO: need to make something happen when no one guesses the prompt and the timer runs out... rn when it runs out it runs out)*
+- *(TODO: optional, but if u type "score" it shows everyone's scores)*
