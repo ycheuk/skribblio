@@ -10,6 +10,11 @@ const io = new Server(server);
 // array of words
 const wordList = ['apple', 'banana', 'orange', 'grape', 'strawberry', 'watermelon', 'soda', 'happy', 'snow'];
 const joinedPlayers = [];
+let playerScores = {};
+
+// global variables
+let gameInPlay = false;
+let wordChosen;
 
 // doing this so the html can access the stylesheet/client-facing code
 app.use(express.static(join(__dirname, 'public')));
@@ -23,13 +28,11 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
     console.log('a user connected');
 
-    // emit 'wordList' event when a user joins
-    socket.emit('wordList', wordList);
-
     // listen for user's name
     socket.on('sendName', (name) => {
         socket.username = name; // store user's name in the socket object
         joinedPlayers.push(name); // add player to the joinedPlayers list
+        playerScores[`${name}`] = 0;
         io.emit('joinedPlayers', joinedPlayers); // emit updated list to all users
     });
 
@@ -42,16 +45,55 @@ io.on('connection', (socket) => {
     socket.on('chat message', (data) => {
         console.log(`${socket.username} said: ${data.message}`);
         io.emit('chat message', { name: socket.username, message: data.message });
+
+        if (data.message.toLowerCase() === "start") {
+            gameInPlay = true;
+
+            
+
+            const randomIndex = Math.floor(Math.random() * joinedPlayers.length);
+            const chosenPlayer = joinedPlayers[randomIndex];
+            
+            const randomIndex2 = Math.floor(Math.random() * wordList.length);
+            wordChosen = wordList[randomIndex2];
+
+            io.sockets.sockets.forEach((socket) => {
+                if (socket.username === chosenPlayer) {
+                    io.to(socket.id).emit('chat message', {name: "Skribblio", message: `your word is: ${wordChosen}`, isJoinMessage: true});
+                } else {
+                    io.to(socket.id).emit('chat message', {name: "Skribblio", message: `${chosenPlayer} is drawing!`, isJoinMessage: true});
+                }
+            });
+
+        io.emit('startGame');
+        }
+
+        if ((data.message.toLowerCase() === wordChosen) && (gameInPlay)) {
+            let temp_user = socket.username;
+
+            playerScores[temp_user] ++;
+
+            io.emit('chat message', {name: "Skribblio", message: `the correct word was ${wordChosen}. ${temp_user} guessed it first, giving them a total of ${playerScores[temp_user]} points!`, isJoinMessage: true});
+
+            io.emit('stopTimer');
+        }
+
     });
 
     // disconnect
     socket.on('disconnect', () => {
         console.log(`${socket.username} disconnected`);
         const index = joinedPlayers.indexOf(socket.username);
+        
         if (index !== -1) {
             joinedPlayers.splice(index, 1); // remove player from the joinedPlayers list
             io.emit('joinedPlayers', joinedPlayers); // emit updated list to all users
+            
         }
+
+        let temp_user = socket.username;
+        delete playerScores.temp_user;
+
     });
 
     // when something is drawn on the canvas
