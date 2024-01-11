@@ -11,7 +11,7 @@ body {
 }
 
 #drawingCanvas {
-    margin: 5px auto;
+    margin-right: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,7 +19,7 @@ body {
 }
 
 canvas {
-    border: 1px solid black;
+    border: 1px solid #66545e;
     height: 75vh;
     width: 75vw;
 }
@@ -167,6 +167,7 @@ li {
     font-size: 12px;
     color: #888;
     text-align: left;
+    margin-bottom: 3px;
 }
 
 .join-message {
@@ -187,11 +188,11 @@ li {
 
 #timer {
     font-size: 24px;
-    color: #333;
+    color: #66545e;
     text-align: center;
     margin: 10px auto;
     position: fixed;
-    top: 0;
+    top: 5px;
     left: 0;
     right: 0;
 }

@@ -18,6 +18,11 @@ const input = document.getElementById('input');
 const messagesContainer = document.getElementById('messages-container');
 const messages = document.getElementById('messages');
 
+let wordList = [];
+let wordChosen = '';
+
+let joinedPlayers = [];
+
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (input.value) {
@@ -38,6 +43,40 @@ socket.on('chat message', (data) => {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 });
 
+// listen for the word list from server
+socket.on('wordList', (list) => {
+    wordList = list;
+    console.log('Received word list:', wordList); // tells console the list (making sure it works)
+
+    chooseRandomWord();
+});
+
+// listen for the joined players list from the server
+socket.on('joinedPlayers', (players) => {
+    joinedPlayers = players;
+    console.log('Joined players:', joinedPlayers); // tells console (again, making sure it works)
+
+    // Call the function to choose a random player
+    chooseRandomPlayer();
+});
+
+// choose a random word from wordList
+function chooseRandomWord() {
+    const randomIndex = Math.floor(Math.random() * wordList.length);
+    wordChosen = wordList[randomIndex];
+    console.log('Chosen word:', wordChosen); // tells console what word has chosen (this make sure it works lol)
+}
+
+// choose a random player from joinedPlayers
+function chooseRandomPlayer() {
+    if (joinedPlayers.length > 0) {
+        const randomIndex = Math.floor(Math.random() * joinedPlayers.length);
+        const chosenPlayer = joinedPlayers[randomIndex];
+        console.log('Chosen player:', chosenPlayer); // tells console (again, making sure it works)
+    } else {
+        console.log('No players to choose from.'); // tells console (again, making sure it works)
+    }
+}
 
 /*
 
