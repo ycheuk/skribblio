@@ -11,17 +11,23 @@ code for chat ⬇️
 
 const name = prompt("Please enter your name:");
 socket.emit('sendName', name);
-socket.emit('userJoined', name);  // Emit 'userJoined' event when a user joins
+socket.emit('userJoined', name);  // emit 'userJoined' event when a user joins
 
 const form = document.getElementById('form');
 const input = document.getElementById('input');
 const messagesContainer = document.getElementById('messages-container');
 const messages = document.getElementById('messages');
 
+const timerElement = document.getElementById('timer');
+let timerDuration = 60;
+let timerInterval;
+
 let wordList = [];
 let wordChosen = '';
 
 let joinedPlayers = [];
+
+let lastUser = null;
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -34,7 +40,7 @@ form.addEventListener('submit', (e) => {
 socket.on('chat message', (data) => {
     const item = document.createElement('li');
     const bubbleClass = data.name === name ? 'bubble sent' : 'bubble';
-    const messageClass = data.isJoinMessage ? 'join-bubble' : bubbleClass;  // Add condition for join message
+    const messageClass = data.isJoinMessage ? 'join-bubble' : bubbleClass;
     item.innerHTML = `
         <div class="name-bubble">${data.name}</div>
         <div class="${messageClass}">${data.message}</div>
@@ -42,6 +48,27 @@ socket.on('chat message', (data) => {
     messages.appendChild(item);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 });
+
+function updateTimer() {
+    const minutes = Math.floor(timerDuration / 60);
+    const seconds = timerDuration % 60;
+    const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    timerElement.textContent = formattedTime;
+}
+
+function startTimer() {
+    timerInterval = setInterval(() => {
+        if (timerDuration > 0) {
+            timerDuration--;
+            updateTimer();
+        } else {
+            clearInterval(timerInterval);
+            console.log('Timer expired!');
+        }
+    }, 1000);
+}
+
+startTimer();
 
 // listen for the word list from server
 socket.on('wordList', (list) => {
