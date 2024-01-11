@@ -1,4 +1,60 @@
 var socket = io();
+/*
+
+
+code for game functionality ⬇️
+
+
+*/
+
+const name = prompt("Please enter your name:");
+
+socket.emit('sendName', name);
+socket.emit('userJoined', name);  // emit 'userJoined' event when a user joins
+
+const timerElement = document.getElementById('timer');
+let timerDuration = 60;
+let timerInterval;
+let timerStopped = false;
+
+let wordList = [];
+let wordChosen = '';
+
+let joinedPlayers = [];
+
+function updateTimer() {
+  const minutes = Math.floor(timerDuration / 60);
+  const seconds = timerDuration % 60;
+  const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  timerElement.textContent = formattedTime;
+}
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+      if ((timerDuration > 0) && !(timerStopped)) {
+          timerDuration--;
+          updateTimer();
+      } else {
+          clearInterval(timerInterval);
+          console.log('Timer expired!'); 
+      }
+  }, 1000);
+}
+
+socket.on('stopTimer', () => {
+  timerStopped = true;
+});
+
+// listen for the joined players list from the server
+socket.on('joinedPlayers', (players) => {
+  joinedPlayers = players;
+});
+
+socket.on('startGame', () => {  
+  timerStopped = false;
+  timerDuration = 60;
+  startTimer();
+});
 
 /*
 
@@ -8,24 +64,10 @@ code for chat ⬇️
 
 */
 
-
-const name = prompt("Please enter your name:");
-socket.emit('sendName', name);
-socket.emit('userJoined', name);  // emit 'userJoined' event when a user joins
-
 const form = document.getElementById('form');
 const input = document.getElementById('input');
 const messagesContainer = document.getElementById('messages-container');
 const messages = document.getElementById('messages');
-
-const timerElement = document.getElementById('timer');
-let timerDuration = 60;
-let timerInterval;
-
-let wordList = [];
-let wordChosen = '';
-
-let joinedPlayers = [];
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -45,62 +87,8 @@ socket.on('chat message', (data) => {
     `;
     messages.appendChild(item);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
 });
-
-function updateTimer() {
-    const minutes = Math.floor(timerDuration / 60);
-    const seconds = timerDuration % 60;
-    const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    timerElement.textContent = formattedTime;
-}
-
-function startTimer() {
-    timerInterval = setInterval(() => {
-        if (timerDuration > 0) {
-            timerDuration--;
-            updateTimer();
-        } else {
-            clearInterval(timerInterval);
-            console.log('Timer expired!');
-        }
-    }, 1000);
-}
-
-startTimer();
-
-// listen for the word list from server
-socket.on('wordList', (list) => {
-    wordList = list;
-    console.log('Received word list:', wordList); // tells console the list (making sure it works)
-
-    chooseRandomWord();
-});
-
-// listen for the joined players list from the server
-socket.on('joinedPlayers', (players) => {
-    joinedPlayers = players;
-    console.log('Joined players:', joinedPlayers); // tells console (again, making sure it works)
-
-    chooseRandomPlayer();
-});
-
-// choose a random word from wordList
-function chooseRandomWord() {
-    const randomIndex = Math.floor(Math.random() * wordList.length);
-    wordChosen = wordList[randomIndex];
-    console.log('Chosen word:', wordChosen); // tells console what word has chosen (this make sure it works lol)
-}
-
-// choose a random player from joinedPlayers
-function chooseRandomPlayer() {
-    if (joinedPlayers.length > 0) {
-        const randomIndex = Math.floor(Math.random() * joinedPlayers.length);
-        const chosenPlayer = joinedPlayers[randomIndex];
-        console.log('Chosen player:', chosenPlayer); // tells console (again, making sure it works)
-    } else {
-        console.log('No players to choose from.'); // tells console (again, making sure it works)
-    }
-}
 
 /*
 
