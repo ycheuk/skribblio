@@ -9,7 +9,7 @@ body {
     font-family: 'Lato', sans-serif;
     color: #66545e;
 
-    background-color: #FAF0ED; hehe don't mind this hehehehehehehehehehehehehehehhehehehehehehe
+    background-color: #FAF0ED; /* hehe don't mind this hehehehehehehehehehehehehehehhehehehehehehe */
 }
 
 #drawingCanvas {
@@ -25,6 +25,8 @@ canvas {
     height: 75vh;
     width: 75vw;
     margin-left: 20px;
+
+    background-color: #FFFFFF;
 }
 
 li {
