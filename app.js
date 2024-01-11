@@ -7,6 +7,9 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
+// array of words
+const wordList = ['apple', 'banana', 'orange', 'grape', 'strawberry', 'watermelon', 'soda', 'happy', 'snow'];
+
 // doing this so the html can access the stylesheet/client-facing code
 app.use(express.static(join(__dirname, 'public')));
 
@@ -22,6 +25,11 @@ io.on('connection', (socket) => {
     // listen for user's name
     socket.on('sendName', (name) => {
         socket.username = name; // store the user's name in the socket object
+    });
+
+    // emit a message when a new user joins
+    socket.on('userJoined', (name) => {
+        io.emit('chat message', { name: 'Skribblio', message: `${name} has joined!`, isJoinMessage: true });
     });
 
     // listen for chat messages
@@ -44,7 +52,7 @@ io.on('connection', (socket) => {
     socket.on('cleared', () => {
         io.emit('cleared');
     });
-    });
+});
 
 server.listen(3000, () => {
     console.log('server running at http://localhost:3000');

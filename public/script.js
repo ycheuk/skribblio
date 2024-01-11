@@ -9,11 +9,9 @@ code for chat ⬇️
 */
 
 
-// prompt for user's name
 const name = prompt("Please enter your name:");
-
-// emit the user's name to the server
 socket.emit('sendName', name);
+socket.emit('userJoined', name);  // Emit 'userJoined' event when a user joins
 
 const form = document.getElementById('form');
 const input = document.getElementById('input');
@@ -21,23 +19,25 @@ const messagesContainer = document.getElementById('messages-container');
 const messages = document.getElementById('messages');
 
 form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  if (input.value) {
-    socket.emit('chat message', { name, message: input.value });
-    input.value = '';
-  }
+    e.preventDefault();
+    if (input.value) {
+        socket.emit('chat message', { name, message: input.value });
+        input.value = '';
+    }
 });
 
 socket.on('chat message', (data) => {
-  const item = document.createElement('li');
-  const bubbleClass = data.name === name ? 'bubble sent' : 'bubble';
-  item.innerHTML = `
-    <div class="name-bubble">${data.name}</div>
-    <div class="${bubbleClass}">${data.message}</div>
-  `;
-  messages.appendChild(item);
-  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    const item = document.createElement('li');
+    const bubbleClass = data.name === name ? 'bubble sent' : 'bubble';
+    const messageClass = data.isJoinMessage ? 'join-bubble' : bubbleClass;  // Add condition for join message
+    item.innerHTML = `
+        <div class="name-bubble">${data.name}</div>
+        <div class="${messageClass}">${data.message}</div>
+    `;
+    messages.appendChild(item);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 });
+
 
 /*
 
@@ -61,6 +61,8 @@ let drawing = false; // checking to see if user is drawing
 // init some coordinates
 let posX = 0;
 let posY = 0;
+
+let playerCount = 0;
 
 myCanvas.addEventListener('mousedown', (e) => {
   init(e); // sets mouse position
