@@ -11,6 +11,11 @@
   <body>
     <!-- <button id="startButton">Start Game</button> -->
     <div id="timer">1:00</div>
+    <div class="brush-options">
+      <button id="brushSmall">Small</button>
+      <button id="brushMedium">Medium</button>
+      <button id="brushLarge">Large</button>
+    </div>
     <div id="drawingCanvas">
       <canvas></canvas> <!-- the actual drawing surface -->
       <br>
@@ -35,7 +40,7 @@
         <ul id="messages"></ul>
       </div>
       <form id="form" action="">
-        <input id="input" autocomplete="off" /><button>Submit</button>
+          <input id="input" autocomplete="off" placeholder="Type 'help' for commands" /><button>Submit</button>
       </form>
     </div>
     <script src="/socket.io/socket.io.js"></script>

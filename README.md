@@ -29,3 +29,14 @@ emily
 Yik Yin:
   - added a "oops no one got it" after time expires
   - if you type "score" it shows everyone's scores
+  - added a message if someone left
+  - added small, medium and large brushes
+  - added "type /help for commands" inside input box
+
+Things to do (optional?):
+  - make it that only the player chosen can draw, while no one else can.
+    - at the same time, the drawer cannot guess, only the players guessing canvas
+  - (fix) drawing is not appearing exactly under the mouse cursor
+  - fix CSS overall. it's a little wonky tbh lol
+  - implement a number of rounds system and determine a winner
+  - undo / redo button

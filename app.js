@@ -31,7 +31,7 @@ function startTimer() {
     timerInterval = setInterval(() => {
         if (timerDuration > 0) {
             timerDuration--;
-            io.emit('updateTimer', timerDuration); 
+            io.emit('updateTimer', timerDuration);
         } else {
             clearInterval(timerInterval);
             io.emit('chat message', { name: 'Skribblio', message: 'Oops! No one got it!', isJoinMessage: true });
@@ -108,13 +108,13 @@ io.on('connection', (socket) => {
     }
 
     if (data.message.toLowerCase() === 'score') {
-        // Emit scores to the requesting client
-        const scoreMessage = Object.entries(playerScores)
-            .map(([user, score]) => `${user}: ${score} points`)
-            .join('\n');
+    // Emit scores to the requesting client
+    const scoreMessage = Object.entries(playerScores)
+        .map(([user, score]) => `${user}: ${score} points`)
+        .join('\n');
 
-        socket.emit('chat message', { name: 'Skribblio', message: scoreMessage, isJoinMessage: true });
-    }
+    socket.emit('chat message', { name: 'Skribblio', message: scoreMessage, isJoinMessage: true });
+}
 
   });
 
@@ -126,12 +126,11 @@ io.on('connection', (socket) => {
         if (index !== -1) {
             joinedPlayers.splice(index, 1); // remove player from the joinedPlayers list
             io.emit('joinedPlayers', joinedPlayers); // emit updated list to all users
-
+            io.emit('chat message', { name: 'Skribblio', message: `${socket.username} has left :(`, isJoinMessage: true });
         }
 
         let temp_user = socket.username;
         delete playerScores.temp_user;
-
     });
 
     // when something is drawn on the canvas

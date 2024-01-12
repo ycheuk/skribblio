@@ -22,6 +22,20 @@ let wordChosen = '';
 
 let joinedPlayers = [];
 
+let brushSize = 5;
+
+document.getElementById('brushSmall').addEventListener('click', () => {
+  brushSize = 1;
+});
+
+document.getElementById('brushMedium').addEventListener('click', () => {
+  brushSize = 5;
+});
+
+document.getElementById('brushLarge').addEventListener('click', () => {
+  brushSize = 15;
+});
+
 function updateTimer() {
   const minutes = Math.floor(timerDuration / 60);
   const seconds = timerDuration % 60;
@@ -134,48 +148,38 @@ function init(e) {
 }
 
 function draw(e) {
-  if (drawing) { // if mousedown
+  if (drawing) {
     myContext.beginPath();
-
-    myContext.moveTo(posX, posY); // starting position = own position
-    myContext.lineTo(e.offsetX, e.offsetY); // ending position = drawing event's recorded offset!
+    myContext.moveTo(posX, posY);
+    myContext.lineTo(e.offsetX, e.offsetY);
+    myContext.lineWidth = brushSize; // Set the brush size
     myContext.stroke();
-
     myContext.closePath();
 
-    // now triggering the socket.io event 'drawn', sharing this drawing information to every user
     socket.emit('drawn', {
-      // sharing current coordinates, offset coordinates, and the current pen color
       posX: posX,
       posY: posY,
-
       offsetX: e.offsetX,
       offsetY: e.offsetY,
-
-      color: myColor
-    })
-
+      color: myColor,
+      brushSize: brushSize // Include brush size in the emitted data
+    });
   }
-
 }
 
 // when the server emits the 'drawn' event
 socket.on('drawn', (data) => {
-  myContext.strokeStyle = `${data.color}`; // setting the color = the color used by the other user
+  myContext.strokeStyle = `${data.color}`;
+  myContext.lineWidth = data.brushSize; // Set the received brush size
 
-  // same code as draw() function, just using the data object instead
   myContext.beginPath();
-
   myContext.moveTo(data.posX, data.posY);
   myContext.lineTo(data.offsetX, data.offsetY);
   myContext.stroke();
-
   myContext.closePath();
 
-  // init() but again with the data object
   posX = data.offsetX;
   posY = data.offsetY;
-
 });
 
 // color button code!
