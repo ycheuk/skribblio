@@ -8,13 +8,16 @@ const server = createServer(app);
 const io = new Server(server);
 
 // array of words
-const wordList = ['apple', 'banana', 'orange', 'grape', 'strawberry', 'watermelon', 'soda', 'happy', 'snow'];
+const wordList = ['apple', 'banana', 'orange', 'grape', 'strawberry', 'watermelon', 'soda',
+'happy', 'snow', 'computer', 'tree', 'treehouse', 'clock', 'soup', 'bed', 'Reddit', 'Instagram'];
 const joinedPlayers = [];
 let playerScores = {};
 
 // global variables
 let gameInPlay = false;
 let wordChosen;
+let timerInterval;
+let timerDuration = 60;
 
 // doing this so the html can access the stylesheet/client-facing code
 app.use(express.static(join(__dirname, 'public')));
@@ -23,6 +26,30 @@ app.use(express.static(join(__dirname, 'public')));
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, 'index.html'));
 });
+
+function startTimer() {
+    timerInterval = setInterval(() => {
+        if (timerDuration > 0) {
+            timerDuration--;
+            io.emit('updateTimer', timerDuration); 
+        } else {
+            clearInterval(timerInterval);
+            io.emit('chat message', { name: 'Skribblio', message: 'Oops! No one got it!', isJoinMessage: true });
+            resetGame();
+        }
+    }, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+    io.emit('stopTimer');
+}
+
+function resetGame() {
+    gameInPlay = false;
+    wordChosen = '';
+    timerDuration = 60;
+}
 
 // connect
 io.on('connection', (socket) => {
@@ -43,52 +70,63 @@ io.on('connection', (socket) => {
 
     // listen for chat messages
     socket.on('chat message', (data) => {
-        console.log(`${socket.username} said: ${data.message}`);
-        io.emit('chat message', { name: socket.username, message: data.message });
+    console.log(`${socket.username} said: ${data.message}`);
+    io.emit('chat message', { name: socket.username, message: data.message });
 
-        if (data.message.toLowerCase() === "start") {
-            gameInPlay = true;
+    if (data.message.toLowerCase() === "start") {
+        gameInPlay = true;
 
-            
+        const randomIndex = Math.floor(Math.random() * joinedPlayers.length);
+        const chosenPlayer = joinedPlayers[randomIndex];
 
-            const randomIndex = Math.floor(Math.random() * joinedPlayers.length);
-            const chosenPlayer = joinedPlayers[randomIndex];
-            
-            const randomIndex2 = Math.floor(Math.random() * wordList.length);
-            wordChosen = wordList[randomIndex2];
+        const randomIndex2 = Math.floor(Math.random() * wordList.length);
+        wordChosen = wordList[randomIndex2];
 
-            io.sockets.sockets.forEach((socket) => {
-                if (socket.username === chosenPlayer) {
-                    io.to(socket.id).emit('chat message', {name: "Skribblio", message: `your word is: ${wordChosen}`, isJoinMessage: true});
-                } else {
-                    io.to(socket.id).emit('chat message', {name: "Skribblio", message: `${chosenPlayer} is drawing!`, isJoinMessage: true});
-                }
-            });
+        io.sockets.sockets.forEach((socket) => {
+            if (socket.username === chosenPlayer) {
+                io.to(socket.id).emit('chat message', {name: "Skribblio", message: `your word is: ${wordChosen}`, isJoinMessage: true});
+            } else {
+                io.to(socket.id).emit('chat message', {name: "Skribblio", message: `${chosenPlayer} is drawing!`, isJoinMessage: true});
+            }
+        });
 
         io.emit('startGame');
-        }
 
-        if ((data.message.toLowerCase() === wordChosen) && (gameInPlay)) {
-            let temp_user = socket.username;
+        // Start the timer when the game starts
+        startTimer();
+    }
 
-            playerScores[temp_user] ++;
+    if ((data.message.toLowerCase() === wordChosen) && (gameInPlay)) {
+        let temp_user = socket.username;
 
-            io.emit('chat message', {name: "Skribblio", message: `the correct word was ${wordChosen}. ${temp_user} guessed it first, giving them a total of ${playerScores[temp_user]} points!`, isJoinMessage: true});
+        playerScores[temp_user] ++;
 
-            io.emit('stopTimer');
-        }
+        io.emit('chat message', {name: "Skribblio", message: `the correct word was ${wordChosen}. ${temp_user} guessed it first, giving them a total of ${playerScores[temp_user]} points!`, isJoinMessage: true});
 
-    });
+        // Stop the timer when the correct word is guessed
+        stopTimer();
+    }
+
+    if (data.message.toLowerCase() === 'score') {
+        // Emit scores to the requesting client
+        const scoreMessage = Object.entries(playerScores)
+            .map(([user, score]) => `${user}: ${score} points`)
+            .join('\n');
+
+        socket.emit('chat message', { name: 'Skribblio', message: scoreMessage, isJoinMessage: true });
+    }
+
+  });
 
     // disconnect
     socket.on('disconnect', () => {
         console.log(`${socket.username} disconnected`);
         const index = joinedPlayers.indexOf(socket.username);
-        
+
         if (index !== -1) {
             joinedPlayers.splice(index, 1); // remove player from the joinedPlayers list
             io.emit('joinedPlayers', joinedPlayers); // emit updated list to all users
-            
+
         }
 
         let temp_user = socket.username;

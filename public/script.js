@@ -36,7 +36,7 @@ function startTimer() {
           updateTimer();
       } else {
           clearInterval(timerInterval);
-          console.log('Timer expired!'); 
+          console.log('Timer expired!');
       }
   }, 1000);
 }
@@ -50,7 +50,7 @@ socket.on('joinedPlayers', (players) => {
   joinedPlayers = players;
 });
 
-socket.on('startGame', () => {  
+socket.on('startGame', () => {
   timerStopped = false;
   timerDuration = 60;
   startTimer();

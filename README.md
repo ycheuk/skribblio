@@ -25,3 +25,7 @@ emily
 - pressing start again after getting it correct resets the timer and invokes a new prompt
 - *(TODO: need to make something happen when no one guesses the prompt and the timer runs out... rn when it runs out it runs out)*
 - *(TODO: optional, but if u type "score" it shows everyone's scores)*
+
+Yik Yin:
+  - added a "oops no one got it" after time expires
+  - if you type "score" it shows everyone's scores

@@ -202,3 +202,17 @@ li {
     left: 0;
     right: 0;
 }
+
+/* #startButton {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 10px;
+    background-color: #AD5B52;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    outline: none;
+} */
