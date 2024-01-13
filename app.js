@@ -18,6 +18,7 @@ let gameInPlay = false;
 let wordChosen;
 let timerInterval;
 let timerDuration = 60;
+let chosenPlayer = '';
 
 // doing this so the html can access the stylesheet/client-facing code
 app.use(express.static(join(__dirname, 'public')));
@@ -68,6 +69,12 @@ io.on('connection', (socket) => {
         io.emit('chat message', { name: 'Skribblio', message: `${name} has joined!`, isJoinMessage: true });
     });
 
+    socket.on('checkIfCanDraw', (data) => {
+        if ((chosenPlayer === '') || (chosenPlayer === socket.username)) {
+            socket.emit('canDraw', data);
+        }
+    })
+
     // listen for chat messages
     socket.on('chat message', (data) => {
     console.log(`${socket.username} said: ${data.message}`);
@@ -77,7 +84,7 @@ io.on('connection', (socket) => {
         gameInPlay = true;
 
         const randomIndex = Math.floor(Math.random() * joinedPlayers.length);
-        const chosenPlayer = joinedPlayers[randomIndex];
+        chosenPlayer = joinedPlayers[randomIndex];
 
         const randomIndex2 = Math.floor(Math.random() * wordList.length);
         wordChosen = wordList[randomIndex2];
@@ -97,6 +104,8 @@ io.on('connection', (socket) => {
     }
 
     if ((data.message.toLowerCase() === wordChosen) && (gameInPlay)) {
+        chosenPlayer = '';
+        
         let temp_user = socket.username;
 
         playerScores[temp_user] ++;
@@ -109,14 +118,19 @@ io.on('connection', (socket) => {
 
     if (data.message.toLowerCase() === 'score') {
     // Emit scores to the requesting client
-    const scoreMessage = Object.entries(playerScores)
-        .map(([user, score]) => `${user}: ${score} points`)
-        .join('\n');
+        const scoreMessage = Object.entries(playerScores)
+            .map(([user, score]) => `<strong>${user}</strong>: ${score} points`)
+            .join('<br>');
 
-    socket.emit('chat message', { name: 'Skribblio', message: scoreMessage, isJoinMessage: true });
-}
+        socket.emit('chat message', { name: 'Skribblio', message: scoreMessage, isJoinMessage: true });
+    }
 
-  });
+    if (data.message.toLowerCase() === 'help') {
+        let commands = "here's a list of commands: <br><br><strong>start</strong> - start a new round of gameplay<br><strong>score</strong> - see each player's current score";
+        socket.emit('chat message', {name: 'Skribblio', message: commands, isJoinMessage: true})
+    }
+
+});
 
     // disconnect
     socket.on('disconnect', () => {
@@ -142,6 +156,10 @@ io.on('connection', (socket) => {
     socket.on('cleared', () => {
         io.emit('cleared');
     });
+});
+
+server.listen(3000, () => {
+    console.log('server running at http://localhost:3000');
 });
 
 server.listen(3000, () => {
