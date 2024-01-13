@@ -20,21 +20,8 @@ let timerStopped = false;
 let wordList = [];
 let wordChosen = '';
 
+let playerCount = 0;
 let joinedPlayers = [];
-
-let brushSize = 5;
-
-document.getElementById('brushSmall').addEventListener('click', () => {
-  brushSize = 1;
-});
-
-document.getElementById('brushMedium').addEventListener('click', () => {
-  brushSize = 5;
-});
-
-document.getElementById('brushLarge').addEventListener('click', () => {
-  brushSize = 15;
-});
 
 function updateTimer() {
   const minutes = Math.floor(timerDuration / 60);
@@ -118,8 +105,8 @@ var myContext = myCanvas.getContext('2d');
 
 var myColor = "#000000"; // setting default as black, will update when color picked changes
 
-myCanvas.height = .8 * window.innerHeight; // making it 80% the height/width
-myCanvas.width = .8 * window.innerWidth;
+myCanvas.height = .7 * window.innerHeight; // making it 80% the height/width
+myCanvas.width = .7 * window.innerWidth;
 
 let drawing = false; // checking to see if user is drawing
 
@@ -127,12 +114,28 @@ let drawing = false; // checking to see if user is drawing
 let posX = 0;
 let posY = 0;
 
-let playerCount = 0;
+let brushSize = 5;
+
+document.getElementById('brushSmall').addEventListener('click', () => {
+  brushSize = 1;
+});
+
+document.getElementById('brushMedium').addEventListener('click', () => {
+  brushSize = 4.75;
+});
+
+document.getElementById('brushLarge').addEventListener('click', () => {
+  brushSize = 8.5;
+});
 
 myCanvas.addEventListener('mousedown', (e) => {
-  init(e); // sets mouse position
-  drawing = true; // is drawing!! bc mouse is down
+  socket.emit('checkIfCanDraw', {event: e});
 });
+
+socket.on('canDraw', (data) => {
+  init(data.event); // sets mouse position
+  drawing = true; // is drawing!! bc mouse is down
+})
 
 myCanvas.addEventListener('mouseup', () => {
   drawing = false;
