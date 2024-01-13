@@ -10,13 +10,8 @@
   </head>
   <body>
     <!-- <button id="startButton">Start Game</button> -->
-    <div id="timer">1:00</div>
-    <div class="brush-options">
-      <button id="brushSmall">Small</button>
-      <button id="brushMedium">Medium</button>
-      <button id="brushLarge">Large</button>
-    </div>
     <div id="drawingCanvas">
+      <div id="timer">1:00</div>
       <canvas></canvas> <!-- the actual drawing surface -->
       <br>
       <div class="palette"> <!-- the colors u can choose from! -->
@@ -34,6 +29,11 @@
           </div>
         </div>
       </div>
+      <div class="brush-options">
+        <button id="brushSmall">Small</button>
+        <button id="brushMedium">Medium</button>
+        <button id="brushLarge">Large</button>
+      </div>
     </div>
     <div id="chat-container">
       <div id="messages-container">
@@ -46,4 +46,4 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/script.js"></script>
   </body>
-  </html>
+</html>
