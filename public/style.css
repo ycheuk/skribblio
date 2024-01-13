@@ -13,7 +13,8 @@ body {
 }
 
 #drawingCanvas {
-    margin-right: 5px;
+    margin-right: 20px;
+    margin-left: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,8 +23,6 @@ body {
 
 canvas {
     border: 1px solid #66545e;
-    height: 70vh;
-    width: 73vw;
     margin-left: 5px;
 
     background-color: #FFFFFF;
@@ -120,6 +119,8 @@ li {
     display: flex;
     height: 50px;
     width: inherit;
+
+    border-radius: 3px;
 }
 
 #input {
@@ -130,6 +131,8 @@ li {
     border-radius: 2rem;
     margin: 0.25rem;
     color: rgba(0, 0, 0, 0.5);
+
+    border-radius: 3px;
 }
 
 
@@ -197,11 +200,8 @@ li {
     font-size: 24px;
     color: #66545e;
     text-align: center;
-    margin: 10px auto;
-    position: absolute;
-    top: 5px;
-    left: 0;
-    right: 0;
+    margin-top: -30px;
+    margin-bottom: 20px;
 }
 
 /* #startButton {
@@ -219,20 +219,18 @@ li {
 } */
 
 .brush-options {
-  display: flex;
-  gap: 10px;
-  position: absolute;
-  bottom: 15px;
-  left: 38%; /* Center the brush options horizontally */
-  transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+
+    margin-top: 30px;
 }
 
 .brush-options button {
-  padding: 5px 10px;
-  cursor: pointer;
-  background-color: #AD5B52;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  outline: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #AD5B52;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    outline: none;
 }
