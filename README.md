@@ -1,42 +1,47 @@
-# skribblio
+## 👩🏻‍💻 DESCRIPTION
+Welcome to `skribbl.io 🎨`, a digital rendition of the classic game of pictionary, where players utilize a chatroom to guess answers and control gameplay. This project was heavily inspired by the popular online game, [**skribbl.io**](https://skribbl.io/).
 
-Updates
---------
-1.10.2024:
-Yik Yin:
-  - added a "[user] has joined!" message
-  - added timer functions updateTimer() and startTimer()
-  - centered .palette and .drawingCanvas (because it started going off screen for me for some reason)
-  - added a (short) array of words
-  - added a chooseRandomWord() function to generate a random word, storing it in "wordChosen" for future
-  - added joinedPlayers() variable to keep track of who joined (also considers the case when someone
-    disconnects as well)
-  - added chooseRandomPlayer() function to choose a random player (for picking a player to draw for future)
-    and stores it in variable chosenPlayer
-  - changed some css styles and colors because i said so >:) (feel free to change ofc if you don't like
-    colors)
+`skribbl.io` was made by [@00eemsy](https://github.com/00eemsy) (emily) and [@ycheuk](https://github.com/ycheuk) (yikyin) as part of our 2024 reed hackathon. This hackathon acted as an introduction to HTML, CSS, JavaScript, web development, client-server interactions, etc., and `skribbl.io` was the capstone of our week-long learning experience!
 
-1.11.2024:
-emily
-- ok lmk if this doesn't make any sense
-- implemented "start" keyword -> if u type "start" into chat, it'll start the timer, randomly assign a player a word to draw, etc.
-- if someone guesses the correct keyword, they're awarded a point and the chat announces they got it correct
-- *(TODO: if u wanna make it closer to actual skribbl.io, we'd need to award points based on the order of getting it correct...)*
-- pressing start again after getting it correct resets the timer and invokes a new prompt
-- *(TODO: need to make something happen when no one guesses the prompt and the timer runs out... rn when it runs out it runs out)*
-- *(TODO: optional, but if u type "score" it shows everyone's scores)*
+This game was created with HTML/CSS/JavaScript, with the help of runtime environments/frameworks/etc. such as [Node.js](https://nodejs.org/en), [Express.js](https://expressjs.com/), and [Socket.IO](https://socket.io/) for our backend
 
-Yik Yin:
-  - added a "oops no one got it" after time expires
-  - if you type "score" it shows everyone's scores
-  - added a message if someone left
-  - added small, medium and large brushes
-  - added "type /help for commands" inside input box
+⬇️ opening still of `skribbl.io`
+![](./visuals/opening.png)
 
-Things to do (optional?):
-  - make it that only the player chosen can draw, while no one else can.
-    - at the same time, the drawer cannot guess, only the players guessing canvas
-  - (fix) drawing is not appearing exactly under the mouse cursor
-  - fix CSS overall. it's a little wonky tbh lol
-  - implement a number of rounds system and determine a winner
-  - undo / redo button
+## 💡 INSTRUCTIONS 
+⬇️ `help` command of `skribbl.io`
+<br>
+<img src="./visuals/help.png" height=750>
+* Type commands directly into the chatbox
+* After starting a round (with the `start` command)
+  * The chat will choose a random player as that round's drawer and will give them a keyword to draw out
+  * Using the canvas's different pen colors and widths, the drawer will be given 1 minute to draw out their keyword
+  * Using the chat, other players will type their guesses into the chat
+  * The first one to guess the word gets a point added to their score!
+  * If no one guesses it, the round is null and no one gains a point
+ 
+##  📦 INSTALLING AND RUNNING 
+1. From [ycheuk/skribblio](https://github.com/ycheuk/skribblio), download the following files:
+    * `app.js` (the server-facing js code)
+    * `index.html`
+    * the `public` folder, which includes:
+        * `style.css`
+        * `script.js`(the client-facing js code)
+2. Also make sure to have Node.js and Express.js installed on your device ([link](https://nodejs.org/en/download/current) to installing Node.js, [link](https://expressjs.com/en/starter/installing.html) to installing Express.js)
+3. Using your preferred console, type the following:
+```
+node app.js
+```
+4. Open the following link on your preferred browser: [https://localhost:3000](https://localhost:3000)
+
+## 🎮 DEMOS 
+_using the chat_
+![](./visuals/chat.gif)
+
+a round of gameplay
+![](./visuals/round.gif)
+
+guessing correctly
+running out of time
+score
+  
