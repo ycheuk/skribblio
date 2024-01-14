@@ -20,6 +20,11 @@ This game was created with HTML/CSS/JavaScript, with the help of runtime environ
   * The first one to guess the word gets a point added to their score!
   * If no one guesses it, the round is null and no one gains a point
  
+### Other Details 🌟
+* When someone's selected as the drawer, no one else can draw on the canvas. When `start` hasn't been activated, anyone can draw on the canvas
+* When the game starts, you're able to choose your own username
+* The chat announces when a user connects/disconnects
+ 
 ##  📦 INSTALLING AND RUNNING 
 1. From [ycheuk/skribblio](https://github.com/ycheuk/skribblio), download the following files:
     * `app.js` (the server-facing js code)
