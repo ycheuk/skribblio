@@ -37,7 +37,6 @@ function startTimer() {
           updateTimer();
       } else {
           clearInterval(timerInterval);
-          console.log('Timer expired!');
       }
   }, 1000);
 }
