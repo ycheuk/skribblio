@@ -38,10 +38,12 @@ node app.js
 _using the chat_
 ![](./visuals/chat.gif)
 
-a round of gameplay
+_a round of gameplay_
 ![](./visuals/round.gif)
 
-guessing correctly
 running out of time
-score
+![](./visuals/oops.gif)
+
+`score` feature
+![](./visuals/score.gif)
   
