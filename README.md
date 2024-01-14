@@ -22,7 +22,7 @@ This game was created with HTML/CSS/JavaScript, with the help of runtime environ
  
 ### Other Details 🌟
 * When someone's selected as the drawer, no one else can draw on the canvas. When `start` hasn't been activated, anyone can draw on the canvas
-* When the game starts, you're able to choose your own username
+* When you first join the server, you're prompted to make your own username
 * The chat announces when a user connects/disconnects
  
 ##  📦 INSTALLING AND RUNNING 
