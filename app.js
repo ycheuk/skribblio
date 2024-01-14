@@ -9,7 +9,7 @@ const io = new Server(server);
 
 // array of words
 const wordList = ['apple', 'banana', 'orange', 'grape', 'strawberry', 'watermelon', 'soda',
-'happy', 'snow', 'computer', 'tree', 'treehouse', 'clock', 'soup', 'bed', 'Reddit', 'Instagram'];
+'happy', 'snow', 'computer', 'tree', 'treehouse', 'clock', 'soup', 'bed'];
 const joinedPlayers = [];
 let playerScores = {};
 
@@ -156,10 +156,6 @@ io.on('connection', (socket) => {
     socket.on('cleared', () => {
         io.emit('cleared');
     });
-});
-
-server.listen(3000, () => {
-    console.log('server running at http://localhost:3000');
 });
 
 server.listen(3000, () => {
