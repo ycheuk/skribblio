@@ -1,7 +1,7 @@
 ## 👩🏻‍💻 DESCRIPTION
 Welcome to `skribbl.io 🎨`, a digital rendition of the classic game of pictionary, where players utilize a chatroom to guess answers and control gameplay. This project was heavily inspired by the popular online game, [**skribbl.io**](https://skribbl.io/).
 
-`skribbl.io` was made by [@00eemsy](https://github.com/00eemsy) (Emily) and [@ycheuk](https://github.com/ycheuk) (Yik Yin) as part of our 2024 reed hackathon. We both worked on all aspects of the project, but broadly speaking Emily focused more on implementing client-server interactions and Yik Yin focused more on stylization/frontend functionality. This hackathon acted as an introduction to HTML, CSS, JavaScript, web development, client-server interactions, etc., and `skribbl.io` was the capstone of our week-long learning experience!
+`skribbl.io` was made by [@00eemsy](https://github.com/00eemsy) (Emily) and [@ycheuk](https://github.com/ycheuk) (Yik Yin) as part of our 2024 Reed Hackathon. We both worked on all aspects of the project, but broadly speaking Emily focused more on implementing client-server interactions and Yik Yin focused more on stylization/frontend functionality. This hackathon acted as an introduction to HTML, CSS, JavaScript, web development, client-server interactions, etc., and `skribbl.io` was the capstone of our week-long learning experience!
 
 This game was created with HTML/CSS/JavaScript, with the help of runtime environments/frameworks/etc. such as [Node.js](https://nodejs.org/en), [Express.js](https://expressjs.com/), and [Socket.IO](https://socket.io/) for our backend
 
