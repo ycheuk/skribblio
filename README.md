@@ -40,15 +40,15 @@ node app.js
 4. Open the following link on your preferred browser: [https://localhost:3000](https://localhost:3000)
 
 ## 🎮 DEMOS 
-_Using the chat_
+_Using the chat:_
 ![](./visuals/chat.gif)
 
-_A round of gameplay_
+_A round of gameplay:_
 ![](./visuals/round.gif)
 
-_Running out of time_
+_Running out of time:_
 ![](./visuals/oops.gif)
 
-_`score` feature_
+_`score` feature:_
 ![](./visuals/score.gif)
   
