@@ -46,9 +46,9 @@ _using the chat_
 _a round of gameplay_
 ![](./visuals/round.gif)
 
-running out of time
+_running out of time_
 ![](./visuals/oops.gif)
 
-`score` feature
+_`score` feature_
 ![](./visuals/score.gif)
   
